@@ -1,3 +1,5 @@
+[Java集合框架](https://jlj98.top/categories/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/)
+
 ## Map下的HashTable和concurrentMap的区别？
 
 HashTable是Synchronize修饰的，是整个数据上进行加群的，是线程安全的，键值都不能为null。
