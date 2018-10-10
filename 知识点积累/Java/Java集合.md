@@ -15,3 +15,35 @@ ArraryList和Vector是数组的，前者不是线程安全的，后者是线程�
 Map
 
 HashMap是key-value的，底层是数组+链表+红黑树。初始容量是16，每次扩容是之前的2倍。Map是通过计算hash值的，如果发生冲突，则转化成链表，如果链表的冲突值大于8，则转化成红黑色。
+
+## 一个ArrayList在循环过程中删除，会不会出问题，为什么?
+
+ArrayList 的 remove 方法有两种删除，一种是 remove(int index)，另外一种是remove(Object o)。
+
+```java
+List<String> list = Stream.of("aa", "aa", "bb", "bb", "cc", "cc", "dd", "dd").collect(Collectors.toList());
+        for (int i = 0; i < list.size(); i++) {
+            if ("aa".equals(list.get(i))) {
+                list.remove(i);
+            }
+        }
+        System.out.println(list);
+        for (int i = 0; i < list.size(); i++) {
+            if ("bb".equals(list.get(i))) {
+                list.remove("bb");
+            }
+        }
+        System.out.println(list);
+```
+
+由于源码中删除当前位置，集合大小减一，删除后面的元素向前移动一位。如果相同两个元素在一起，就会导致后面的一个元素不能删除成功。如果使用迭代器Iterator，就不会出现上面的问题。
+
+```java
+ for (String obj : list) {
+ 	if (obj.equals("cc")) {
+		list.remove(obj);
+ 	}
+}
+```
+
+上面这种for-each写法会报出著名的并发修改异常：java.util.ConcurrentModificationException。
