@@ -9,7 +9,7 @@ if [ $# -lt 1  ]; then
     commit_str = "fix JavaGuide"
 fi
 commit_str = $1
-echo commit_str
+echo ${#commit_str}
 git add .
 git commit -m ${#commit_str}
 #git push origin master
