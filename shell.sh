@@ -4,7 +4,7 @@ node createcatalogue.js
 echo '目录结构生成完毕！'
 echo '上传到GitHub上'
 commit_str = "fix JavaGuide"
-if [[ $# -lt 1  ]]; then
+if [ $# -lt 1  ]; then
 	echo "have not any args,default a commit"
     commit_str = "fix JavaGuide"
 fi
