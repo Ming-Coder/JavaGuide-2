@@ -318,3 +318,13 @@ web 容器加载 servlet 并将其实例化后，servlet 生命周期开始，�
 补充：servlet 与 CGI 的区别：
 
 servlet 处于服务器进程中，它通过多线程的方式运行其 service 方法，一个实例可以服务于多个请求，并且其实例一般不会销毁，而 CGI 对每个请求都产生新的进程，服务完成后就销毁，所以效率上低于 servlet。
+
+## Integer 和 int 的区别？
+
+int是整型数字，是Java的8种原始数据类型（int、boolean、byte、short、char、float、double、long）之一。Integer 是 int 的包装类。int 的默认值是 0，Integer 的默认值是 null。
+
+关于 Integer 的值缓存，构建 Integer 对象的窗台方式是直接调用构造器，直接new一个对象，但是在平时，会发现大部分数据操作基本几种在有限的、较小的数值范围，因此，提供静态工厂方法 valueOf，在调用是会利用一个缓存机制，这个默认缓存范围：-128 到 127。
+
+**装箱**：将基本类型用它们对应的引用类型包装起来；
+
+**拆箱**：将包装类型转换为基本数据类型
