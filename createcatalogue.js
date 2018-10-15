@@ -57,9 +57,10 @@ relativePath.forEach(filePath => {
 
 // README.md 中的内容
 let readmeContent = `
-# 积累
+## 积累
+
 读书笔记，记录学习过程遇到的任何知识点
----
+
 ## 目录结构
 `
 // 整理输出结构
