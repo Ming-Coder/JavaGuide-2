@@ -87,5 +87,17 @@ View是一个接口，实现类支持不同的View类型（jsp、freemarker、pd
 - PROPAGATION_NOT_SUPPORTED–以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。
 - PROPAGATION_NEVER–以非事务方式执行，如果当前存在事务，则抛出异常。
 
-## Spring Bean 的声明周期？
+## Spring Bean 的生命周期？
 
+![](../../img/spring-bean-life-cycle.jpg)
+
+- Spring 对 bean 进行初始化；
+- Spring 将值和 bean 的引用注入到bean对应的属性中；
+- 如果bean 实现了 BeanNameAware 接口，Spring 将 bean 的 ID 传递给 setBeanName() 方法；
+- 如果 bean 实现了 BeanFactoryAware 接口，spring 将调用 setBeanFactory() 方法，将 BeanFactory 容器实例传入；
+- 如果 bean 实现了 ApplicationContextAware 接口，Spring 将调用 setApplicationContext() 方法，将 bean 所在的引用上下文的引用传入进来；
+- 如果 bean 实现了 BeanPostProcessor 接口，Spring 将调用它们的的postProcessBeforeInitialization() 方法；
+- 如果bean实现了 InitializingBean 接口，Spring 将调用它们的 afterPropertiesset() 方法。类似地，如果 bean 使用 init-method 声明了初始化方法,该方法也会被调用；
+- 如果 bean 实现了 BeanPostProcessor 接口，Spring将调用它们的 postProcessAfterInitialization() 方法；
+- 此时，bean 已经准备就绪，可以被应用程序使用了，它们将一直驻留在应用上下文中,直到该应用上下文被销毁；
+- 如果 bean 实现了 DisposableBean 接口，Spring 将调用它的 destroy() 接口方法。同样，如果 bean 使用 destroy- method 声明了销毁方法，该方法也会被调用。
