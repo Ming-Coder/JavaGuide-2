@@ -86,3 +86,6 @@ View是一个接口，实现类支持不同的View类型（jsp、freemarker、pd
 - PROPAGATION_REQUIRES_NEW–新建事务，如果当前存在事务，把当前事务挂起。
 - PROPAGATION_NOT_SUPPORTED–以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。
 - PROPAGATION_NEVER–以非事务方式执行，如果当前存在事务，则抛出异常。
+
+## Spring Bean 的声明周期？
+
