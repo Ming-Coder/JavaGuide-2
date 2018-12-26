@@ -18,6 +18,7 @@
 		- [Java基础知识](/知识点/Java/Java基础知识.md)
 		- [Java多线程](/知识点/Java/Java多线程.md)
 		- [Java虚拟机部分](/知识点/Java/Java虚拟机部分.md)
+		- [Java队列](/知识点/Java/Java队列.md)
 		- [Java集合](/知识点/Java/Java集合.md)
 	- [Spring](/知识点/Spring)
 		- [SpringBoot知识点](/知识点/Spring/SpringBoot知识点.md)
