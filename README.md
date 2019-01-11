@@ -7,8 +7,6 @@
 - [Xmind](/Xmind)
 	- [垃圾回收算法](/Xmind/垃圾回收算法.xmind)
 	- [知识图](/Xmind/知识图.xmind)
-- [ios](/ios)
-	- [swfit](/ios/swfit)
 - [netty](/netty)
 	- [Netty](/netty/Netty.md)
 - [知识点](/知识点)
