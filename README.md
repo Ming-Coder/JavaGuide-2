@@ -1,7 +1,7 @@
 
 ## 积累
 
-读书笔记，记录学习过程遇到的任何知识点
+读书笔记，记录学习过程遇到的任何知识点。如果觉得不错的话，star 一下。
 
 ## 目录结构
 - [Xmind](/Xmind)
@@ -21,6 +21,7 @@
 	- [Spring](/知识点/Spring)
 		- [SpringBoot知识点](/知识点/Spring/SpringBoot知识点.md)
 		- [Spring知识点](/知识点/Spring/Spring知识点.md)
+		- [spring boot 启动](/知识点/Spring/spring boot 启动)
 	- [中间件](/知识点/中间件)
 		- [消息中间件](/知识点/中间件/消息中间件.md)
 	- [主流框架](/知识点/主流框架)

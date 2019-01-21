@@ -59,7 +59,7 @@ relativePath.forEach(filePath => {
 let readmeContent = `
 ## 积累
 
-读书笔记，记录学习过程遇到的任何知识点
+读书笔记，记录学习过程遇到的任何知识点。如果觉得不错的话，star 一下。
 
 ## 目录结构
 `
