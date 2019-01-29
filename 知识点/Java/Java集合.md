@@ -2,15 +2,15 @@
 
 ## 集合总结
 
-| 集合                                                         | 初始容量                                           | 扩容                                            | 是否安全             | 结构                 | 集合特性         |
-| ------------------------------------------------------------ | -------------------------------------------------- | ----------------------------------------------- | -------------------- | -------------------- | ---------------- |
-| [Set](https://jlj98.top/2018/09/15/java-set/)                | HashSet底层使用HashMap；TreeSet底层使用的是TreeMap | 和使用的底层相似                                | N                    | HashMap/TreeMap      | 无序不重复       |
-| [Vector](https://jlj98.top/2018/05/08/java-vector/)          | 10                                                 | 当元素超过容量时，增加一倍                      | Y(synchrozized)      | 数组                 |                  |
-| [ArrayList](https://jlj98.top/2018/04/18/Java-ArrayList-LinkedList/#ArrayList%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90) | 10                                                 | 扩容原来的0.5倍+1，即第一次扩容后的容量是16     | N                    | 数组                 |                  |
-| [LinkedList](https://jlj98.top/2018/04/18/Java-ArrayList-LinkedList/#LinkedList%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90) | 没有                                               |                                                 | N                    | 双向链表             |                  |
-| [HashMap](https://jlj98.top/2018/04/24/Java-HashMap/)        | 默认初始容量16，加载因子0.75                       | 当元素个数超过容量长度*加载因子，扩容1倍        | N                    | 数组+双向链表+红黑树 | 键值对可以为null |
-| [ConcurrentHashMap](https://jlj98.top/2018/06/27/Java-ConcurrentHashMap/) | 16，加载因子0.75                                   | 扩充一倍                                        | Y(synchrozized和CAS) | 数组+双向链表+红黑树 | 键值对不能为null |
-| [HashTable](https://jlj98.top/2018/09/19/java-Hashtable/)    | 默认初始容量11，加载因子0.75                       | 默认情况下阀值为8，当超过8就扩容，扩大1倍，且+1 | Y(synchrozized)      | 数组+链表            | 键值对不能为null |
+| 集合                                                         | 初始容量                                           | 扩容                                                         | 是否安全             | 结构                 | 集合特性         |
+| ------------------------------------------------------------ | -------------------------------------------------- | ------------------------------------------------------------ | -------------------- | -------------------- | ---------------- |
+| [Set](https://jlj98.top/2018/09/15/java-set/)                | HashSet底层使用HashMap；TreeSet底层使用的是TreeMap | 和使用的底层相似                                             | N                    | HashMap/TreeMap      | 无序不重复       |
+| [Vector](https://jlj98.top/2018/05/08/java-vector/)          | 10                                                 | 当元素超过容量时，如果有初始扩容量，则增加初始扩容量，否则，增加1倍 | Y(synchrozized)      | 数组                 |                  |
+| [ArrayList](https://jlj98.top/2018/04/18/Java-ArrayList-LinkedList/#ArrayList%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90) | 10                                                 | 扩容原来的0.5倍，即第一次扩容后的容量是16                    | N                    | 数组                 |                  |
+| [LinkedList](https://jlj98.top/2018/04/18/Java-ArrayList-LinkedList/#LinkedList%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90) | 没有                                               |                                                              | N                    | 双向链表             |                  |
+| [HashMap](https://jlj98.top/2018/04/24/Java-HashMap/)        | 默认初始容量16，加载因子0.75                       | 当元素个数超过容量长度*加载因子，扩容1倍                     | N                    | 数组+双向链表+红黑树 | 键值对可以为null |
+| [ConcurrentHashMap](https://jlj98.top/2018/06/27/Java-ConcurrentHashMap/) | 16，加载因子0.75                                   | 扩充一倍                                                     | Y(synchrozized和CAS) | 数组+双向链表+红黑树 | 键值对不能为null |
+| [HashTable](https://jlj98.top/2018/09/19/java-Hashtable/)    | 默认初始容量11，加载因子0.75                       | 默认情况下阀值为8，当超过8就扩容，扩大1倍，且+1              | Y(synchrozized)      | 数组+链表            | 键值对不能为null |
 
 ## Map下的HashTable和concurrentMap的区别？
 
