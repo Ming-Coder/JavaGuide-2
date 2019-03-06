@@ -9,7 +9,7 @@
 | [ArrayList](https://jlj98.top/2018/04/18/Java-ArrayList-LinkedList/#ArrayList%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90) | 10                                                 | 扩容原来的0.5倍，即第一次扩容后的容量是16                    | N                    | 数组                 |                  |
 | [LinkedList](https://jlj98.top/2018/04/18/Java-ArrayList-LinkedList/#LinkedList%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90) | 没有                                               |                                                              | N                    | 双向链表             |                  |
 | [HashMap](https://jlj98.top/2018/04/24/Java-HashMap/)        | 默认初始容量16，加载因子0.75                       | 当元素个数超过容量长度*加载因子，扩容1倍                     | N                    | 数组+双向链表+红黑树 | 键值对可以为null |
-| [ConcurrentHashMap](https://jlj98.top/2018/06/27/Java-ConcurrentHashMap/) | 16，加载因子0.75                                   | 扩充一倍                                                     | Y(synchrozized和CAS) | 数组+双向链表+红黑树 | 键值对不能为null |
+| [ConcurrentHashMap](https://jlj98.top/2018/06/27/Java-ConcurrentHashMap/) | 16，加载因子0.75                                   | 扩充一倍                                                     | Y(synchrozized和CAS) | 数组+单向链表+红黑树 | 键值对不能为null |
 | [HashTable](https://jlj98.top/2018/09/19/java-Hashtable/)    | 默认初始容量11，加载因子0.75                       | 默认情况下阀值为8，当超过8就扩容，扩大1倍，且+1              | Y(synchrozized)      | 数组+链表            | 键值对不能为null |
 
 ## Map下的HashTable和concurrentMap的区别？
