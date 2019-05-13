@@ -56,7 +56,9 @@ public abstract class AbstractLoadBalance implements LoadBalance {
 
 
 
-### 随机选择算法
+### 随机选择算法(RandomLoadBalance)
+
+随机选择一个
 
 ```java
 protected <T> Invoker<T> doSelect(List<Invoker<T>> invokers, URL url, Invocation invocation) {
@@ -98,7 +100,9 @@ protected <T> Invoker<T> doSelect(List<Invoker<T>> invokers, URL url, Invocation
     }
 ```
 
-### 轮询策略
+### 轮询策略(RoundRobinLoadBalance)
+
+轮询选择一个
 
 ```java
 public static final String NAME = "roundrobin";
