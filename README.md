@@ -6,8 +6,8 @@
 ## 目录结构
 - [Dubbo](/Dubbo)
 	- [负载均衡](/Dubbo/负载均衡)
-		- [Dubbo 源码分析——负载均衡（1）](/Dubbo/负载均衡/Dubbo 源码分析——负载均衡（1）.md)
-		- [Dubbo 源码分析——负载均衡（2）](/Dubbo/负载均衡/Dubbo 源码分析——负载均衡（2）.md)
+		- [Dubbo 源码分析——负载均衡1](/Dubbo/负载均衡/Dubbo 源码分析——负载均衡1.md)
+		- [Dubbo 源码分析——负载均衡2](/Dubbo/负载均衡/Dubbo 源码分析——负载均衡2.md)
 - [netty](/netty)
 	- [Netty](/netty/Netty.md)
 - [Xmind](/Xmind)
