@@ -23,7 +23,7 @@
 		- [Java队列](/知识点/Java/Java队列.md)
 		- [Java集合](/知识点/Java/Java集合.md)
 	- [Spring](/知识点/Spring)
-		- [spring boot 启动](/知识点/Spring/spring boot 启动)
+		- [spring boot 启动](/知识点/Spring/spring boot 启动.md)
 		- [SpringBoot知识点](/知识点/Spring/SpringBoot知识点.md)
 		- [Spring知识点](/知识点/Spring/Spring知识点.md)
 	- [中间件](/知识点/中间件)
