@@ -120,54 +120,40 @@ public static final String NAME = "consistenthash";
 
     @Override
     protected <T> Invoker<T> doSelect(List<Invoker<T>> invokers, URL url, Invocation invocation) {
-        // Number of invokers
-        int length = invokers.size();
-        // The least active value of all invokers
-        int leastActive = -1;
-        // The number of invokers having the same least active value (leastActive)
-        int leastCount = 0;
-        // The index of invokers having the same least active value (leastActive)
-        int[] leastIndexes = new int[length];
-        // the weight of every invokers
-        int[] weights = new int[length];
+        int length = invokers.size();//总个数
+        int leastActive = -1;//最小活跃数
+        int leastCount = 0;//相同最小活跃数
+        int[] leastIndexes = new int[length];//相同最小活跃数下标
+        int[] weights = new int[length];//权重
         // The sum of the warmup weights of all the least active invokes
-        int totalWeight = 0;
-        // The weight of the first least active invoke
-        int firstWeight = 0;
-        // Every least active invoker has the same weight value?
-        boolean sameWeight = true;
-
-
+        int totalWeight = 0;//总权重
+        int firstWeight = 0;//第一个最少活跃数的权重
+        boolean sameWeight = true;//是否所以权重都相同
+        
         // Filter out all the least active invokers
         for (int i = 0; i < length; i++) {
             Invoker<T> invoker = invokers.get(i);
-            // Get the active number of the invoke
+            //获取invoke的活跃值
             int active = RpcStatus.getStatus(invoker.getUrl(), invocation.getMethodName()).getActive();
-            // Get the weight of the invoke configuration. The default value is 100.
+            // 获取invoke配置的权重值，默认1000
             int afterWarmup = getWeight(invoker, invocation);
             // save for later use
             weights[i] = afterWarmup;
-            // If it is the first invoker or the active number of the invoker is less than the current least active number
+            // 发现更小的活跃数
             if (leastActive == -1 || active < leastActive) {
-                // Reset the active number of the current invoker to the least active number
+                // 使用当前活跃值更新最小活跃数
                 leastActive = active;
-                // Reset the number of least active invokers
                 leastCount = 1;
-                // Put the first least active invoker first in leastIndexs
+            	//记录当前下标
                 leastIndexes[0] = i;
-                // Reset totalWeight
                 totalWeight = afterWarmup;
-                // Record the weight the first least active invoker
                 firstWeight = afterWarmup;
-                // Each invoke has the same weight (only one invoker here)
                 sameWeight = true;
-                // If current invoker's active value equals with leaseActive, then accumulating.
+                
             } else if (active == leastActive) {
-                // Record the index of the least active invoker in leastIndexs order
+                //当前活跃数和最小活跃数相同
                 leastIndexes[leastCount++] = i;
-                // Accumulate the total weight of the least active invoker
                 totalWeight += afterWarmup;
-                // If every invoker has the same weight?
                 if (sameWeight && i > 0
                         && afterWarmup != firstWeight) {
                     sameWeight = false;
