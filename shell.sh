@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "注意:文件夹或者文件的命名不要带有空格...."
 if [ x"$1" = x ]; then 
     echo "填写 commit参数..."
     exit 1
