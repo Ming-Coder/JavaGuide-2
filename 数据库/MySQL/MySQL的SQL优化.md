@@ -1,0 +1,103 @@
+## MySQL的SQL优化
+
+### InnoDB的表
+
+在InnoDB存储引擎中，表都是根据主键顺序组织存放的。在InnoDB存储引擎表中，每张表都有个主键，如果在创建表的时没有显式地定义主键，InnoDB存储引擎会按照下面选择或者创建主键：
+
+- 首先判断表中是否有非空的唯一索引，如果有，则该列即为主键（如果有多个的时候，选择第一个定义的唯一索引）；
+- 如果不符合上述条件，InnoDB存储引擎自动创建一个6字节大小的指针。
+
+**注意：**在建表的时候，最好还是指定主键，而且最好使用自增，而不是UUID这种作为主键，因为UUID一般都是无序的，在插入新的记录的时候，需要对数据重新排序。
+
+### 索引
+
+B+树索引并不能找到一个给定键值的具体行。B+树索引找到的只是被查找数据行所在的页，然后数据库通过把页读入到内存中，再在内存中进行查找，最后得到需要查找的数据。
+
+对于索引的一些基本认识：
+
+- 索引加快数据库查询速度；
+- 表经常进行INSERT/UPDATE/DELETE操作就不要建立索引了，换言之：索引会降低插入、删除、修改等维护任务的速度；
+- 索引的最左匹配原则
+- 索引的分类：聚集索引和非聚集索引
+
+#### 聚集索引
+
+聚簇索引值主索引文件和数据文件为同一份文件，聚簇索引主要用在Innodb存储引擎中。在该索引实现方式中，B+tree的叶子节点上的data就是数据本身，key为主键，如果是一般索引的话，data便会指向对应的主索引。
+
+#### 非聚集索引
+
+非聚簇索引指的是B+Tree的叶节点上的data，并不是数据本身，而是数据存放的地址。主索引和辅助索引没啥区别，只是主索引的key一定是唯一的。主要用于MyIsAM存储引擎中。
+
+#### 常见索引
+
+- 单列索引：主键索引，唯一索引，普通索引
+- 组合索引：联合索引
+
+
+
+## =、in自动优化顺序
+
+对于注意点最后一点，在MySQL中，对于索引会自动优化条件的顺序，方便匹配尽可能对的索引列。可以看下面一个实例：
+
+```sql
+CREATE TABLE `user` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) DEFAULT NULL,
+  `age` int(11) DEFAULT NULL,
+  `password` varchar(64) NOT NULL COMMENT '密码',
+  `createTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updateTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `status` tinyint(3) DEFAULT '1' COMMENT '状态, 1:启用,-1:删除',
+  `card` varchar(64) DEFAULT NULL COMMENT '身份证',
+  `phone` varchar(64) DEFAULT NULL COMMENT '手机',
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`),
+  KEY `index_user` (`name`,`password`,`card`,`phone`,`age`)
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8;
+```
+
+
+
+如上面创建一张表，并创建索引 `index_user`。
+1、从上面的一个例子，我们可以看出，虽然我们查询条件并没有按照索引里面的顺序，但是查询还是走的是索引。
+
+[![img](https://hexo-1252893039.cos.ap-shanghai.myqcloud.com/Qiniu/5588441b2b01cbb195c0ced1e2befe41.jpg)](https://hexo-1252893039.cos.ap-shanghai.myqcloud.com/Qiniu/5588441b2b01cbb195c0ced1e2befe41.jpg)
+
+[![img](https://hexo-1252893039.cos.ap-shanghai.myqcloud.com/Qiniu/caa7c87b03ad3ed466176f31d0ec26c0.jpg)](https://hexo-1252893039.cos.ap-shanghai.myqcloud.com/Qiniu/caa7c87b03ad3ed466176f31d0ec26c0.jpg)
+
+2、这个例子看出，下面这个查询没有走索引。可以注意点最后一点对照着看。
+
+[![img](https://hexo-1252893039.cos.ap-shanghai.myqcloud.com/Qiniu/ab33d1e09a4c0bfe6b94ce2b023d5711.jpg)](https://hexo-1252893039.cos.ap-shanghai.myqcloud.com/Qiniu/ab33d1e09a4c0bfe6b94ce2b023d5711.jpg)
+
+[![img](https://hexo-1252893039.cos.ap-shanghai.myqcloud.com/Qiniu/1b529270d16fe8934d39267f534aca06.jpg)](https://hexo-1252893039.cos.ap-shanghai.myqcloud.com/Qiniu/1b529270d16fe8934d39267f534aca06.jpg)
+
+### 关于 EXPLAIN
+
+在我们写SQL语句的时候，可以使用 EXPLAIN + SQL 来查看所写SQL的一些情况。
+
+   **示查询中每个select子句的类型**
+
+- SIMPLE(简单SELECT,不使用UNION或子查询等)
+
+- PRIMARY(查询中若包含任何复杂的子部分,最外层的select被标记为PRIMARY)
+
+- UNION(UNION中的第二个或后面的SELECT语句)
+
+- DEPENDENT UNION(UNION中的第二个或后面的SELECT语句，取决于外面的查询)
+
+- UNION RESULT(UNION的结果)
+
+- SUBQUERY(子查询中的第一个SELECT)
+
+- DEPENDENT SUBQUERY(子查询中的第一个SELECT，取决于外面的查询)
+
+- DERIVED(派生表的SELECT, FROM子句的子查询)
+
+- UNCACHEABLE SUBQUERY(一个子查询的结果不能被缓存，必须重新评估外链接的第一行)
+
+type：表示mysql在表中找到所需行的方式，常用的类型有： **ALL< index <  range < ref < eq_ref < const < system < NULL（从左到右，性能从差到好）**
+
+
+
+
+
