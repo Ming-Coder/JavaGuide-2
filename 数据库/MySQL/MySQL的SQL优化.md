@@ -97,7 +97,25 @@ CREATE TABLE `user` (
 
 type：表示mysql在表中找到所需行的方式，常用的类型有： **ALL< index <  range < ref < eq_ref < const < system < NULL（从左到右，性能从差到好）**
 
+### 关于模糊查询
 
+```sql
+//创建一个索引
+ALTER TABLE `user` ADD INDEX idx_name(name);
+EXPLAIN SELECT * FROM user WHERE name LIKE '%est%';
+```
 
+![](https://hexo-1252893039.cos.ap-shanghai.myqcloud.com/20190630131920.png)
 
+从上面的分析结果中，我们可以看出，对于这个SQL语句，我们是没有走索引的。对于模糊查询，应该知道，`est%`是会走索引的，但是在平时的使用中，我们基本都是全模糊的查询，而不是半个，这时候，我们就要使用到全文索引了。
+
+**全文索引：**在之前的InnoDB中，是不支持全文索引的，只有MyIsAM存储引擎是支持的。但是在InnoDB 1.2x版本开始，也开始支持全文索引的了。
+
+```sql
+ALTER TABLE `user` ADD FULLTEXT INDEX ft_name  (`name`);
+//全文索引的查询语句
+EXPLAIN SELECT * FROM user WHERE  MATCH(NAME) against('*est*');
+```
+
+![](https://hexo-1252893039.cos.ap-shanghai.myqcloud.com/20190630133235.png)
 

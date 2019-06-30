@@ -4,10 +4,10 @@
 读书笔记，记录学习过程遇到的任何知识点。如果觉得不错的话，star 一下。
 
 ## 目录结构
-- [dubbo](/dubbo)
-	- [负载均衡](/dubbo/负载均衡)
-		- [Dubbo源码分析之负载均衡1](/dubbo/负载均衡/Dubbo源码分析之负载均衡1.md)
-		- [Dubbo源码分析之负载均衡2](/dubbo/负载均衡/Dubbo源码分析之负载均衡2.md)
+- [Dubbo](/Dubbo)
+	- [负载均衡](/Dubbo/负载均衡)
+		- [Dubbo源码分析之负载均衡1](/Dubbo/负载均衡/Dubbo源码分析之负载均衡1.md)
+		- [Dubbo源码分析之负载均衡2](/Dubbo/负载均衡/Dubbo源码分析之负载均衡2.md)
 - [Java](/Java)
 	- [Java8知识](/Java/Java8知识.md)
 	- [Java基础知识](/Java/Java基础知识.md)
@@ -16,8 +16,6 @@
 	- [Java队列](/Java/Java队列.md)
 	- [Java集合](/Java/Java集合.md)
 - [Maven](/Maven.md)
-- [netty](/netty)
-	- [Netty](/netty/Netty.md)
 - [Spring](/Spring)
 	- [SpringBoot启动](/Spring/SpringBoot启动.md)
 	- [SpringBoot知识点](/Spring/SpringBoot知识点.md)
@@ -25,6 +23,8 @@
 - [Xmind](/Xmind)
 	- [垃圾回收算法](/Xmind/垃圾回收算法.xmind)
 	- [知识图](/Xmind/知识图.xmind)
+- [netty](/netty)
+	- [Netty](/netty/Netty.md)
 - [中间件](/中间件)
 	- [消息中间件](/中间件/消息中间件.md)
 - [主流框架](/主流框架)
