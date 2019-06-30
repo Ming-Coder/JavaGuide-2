@@ -107,14 +107,32 @@ EXPLAIN SELECT * FROM user WHERE name LIKE '%est%';
 
 ![](https://hexo-1252893039.cos.ap-shanghai.myqcloud.com/20190630131920.png)
 
-从上面的分析结果中，我们可以看出，对于这个SQL语句，我们是没有走索引的。对于模糊查询，应该知道，`est%`是会走索引的，但是在平时的使用中，我们基本都是全模糊的查询，而不是半个，这时候，我们就要使用到全文索引了。
+从上面的分析结果中，我们可以看出，对于这个SQL语句，我们是没有走索引的。对于模糊查询，应该知道，`est%`是会走索引的，但是在平时的使用中，我们基本都是全模糊的查询，而不是半个，这时候，我们就要使用到全文检索了。
 
-**全文索引：**在之前的InnoDB中，是不支持全文索引的，只有MyIsAM存储引擎是支持的。但是在InnoDB 1.2x版本开始，也开始支持全文索引的了。
+**全文检索：**在之前的InnoDB中，是不支持全文索引的，只有MyIsAM存储引擎是支持的。但是在InnoDB 1.2x版本开始，也开始支持全文索引的了。
+
+全文检索的语法是：MATCH(col1,col2,…) AGAINST(expr[search_modifier])
+
+- MATCH：指定需要被查询的列
+- AGAINST：指定了使用哪种方法区进行查询
+
+下面是各种查询模式的介绍：
+
+- Natural Language：全文检索通过MATCH函数进行查询，默认采用`Natural Language`模式，其表示查询带有指定word的文档。
+
+- Boolean：MySQL 数据库允许使用 `IN BOOLEAN MODE` 修饰符来进行全文检索。当使用该修饰符时，查询字符串的前后字符会有特殊含义。
+
+  > - `+ `：表示Word必须存在
+  > - `-`  ：表示word必须排除
+  > - `>`：表示出现单词是增加相关性
+  > - `<`：表示出现该单词时降低相关性
+  > - `~`：表示允许出现该单词，但是出现时相关性为负
+  > - `*`表示以该单词开头的单词，入lik*，表示可以是 lik、like
 
 ```sql
 ALTER TABLE `user` ADD FULLTEXT INDEX ft_name  (`name`);
 //全文索引的查询语句
-EXPLAIN SELECT * FROM user WHERE  MATCH(NAME) against('*est*');
+EXPLAIN SELECT * FROM user WHERE  MATCH(NAME) against('*est*' IN NATURAL LANGUAGE MODE);
 ```
 
 ![](https://hexo-1252893039.cos.ap-shanghai.myqcloud.com/20190630133235.png)
