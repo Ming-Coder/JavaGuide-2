@@ -11,8 +11,6 @@
 
 ### 索引
 
-B+树索引并不能找到一个给定键值的具体行。B+树索引找到的只是被查找数据行所在的页，然后数据库通过把页读入到内存中，再在内存中进行查找，最后得到需要查找的数据。
-
 对于索引的一些基本认识：
 
 - 索引加快数据库查询速度；
@@ -47,13 +45,13 @@ CREATE TABLE `user` (
   `password` varchar(64) NOT NULL COMMENT '密码',
   `createTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updateTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `status` tinyint(3) DEFAULT '1' COMMENT '状态, 1:启用,-1:删除',
+  `status` tinyint(3) DEFAULT '1' COMMENT '状态, 1:启用,0:删除',
   `card` varchar(64) DEFAULT NULL COMMENT '身份证',
   `phone` varchar(64) DEFAULT NULL COMMENT '手机',
   PRIMARY KEY (`id`),
-  KEY `id` (`id`),
-  KEY `index_user` (`name`,`password`,`card`,`phone`,`age`)
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8;
+  KEY `index_user` (`name`,`password`,`card`,`phone`,`age`),
+  FULLTEXT KEY `ft_name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8 COMMENT='用户表';
 ```
 
 
