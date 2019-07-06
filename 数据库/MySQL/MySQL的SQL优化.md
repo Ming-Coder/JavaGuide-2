@@ -7,7 +7,9 @@
 - 首先判断表中是否有非空的唯一索引，如果有，则该列即为主键（如果有多个的时候，选择第一个定义的唯一索引）；
 - 如果不符合上述条件，InnoDB存储引擎自动创建一个6字节大小的指针。
 
-**注意：** 在建表的时候，最好还是指定主键，而且最好使用自增，而不是UUID这种作为主键，因为UUID一般都是无序的，在插入新的记录的时候，需要对数据重新排序。
+
+
+**注意：**在建表的时候，最好还是指定主键，而且最好使用自增，而不是UUID这种作为主键，因为UUID一般都是无序的，在插入新的记录的时候，可能增加额外的开销。B+树为了维护索引的有序性，在插入新值得实惠需要做必要的维护。比如在某页数据中间插入某条数据，这时候就需要移动后面的数据，空出位置。如果碰到这一页数据满了，还需要申请新的数据页，挪动部分数据过去，这种过程称为页的分裂，这种情况就很影响性能。
 
 ### 硬件
 
@@ -15,6 +17,7 @@
 
 InnoDB 存储引擎即缓存数据，又缓存索引，并且将它们缓存于一个很大的缓冲池中，即 InnoDB Buffer Pool。因此，内存的大小直接影响了数据的性能。
 
+<<<<<<< HEAD
 ![](https://hexo-1252893039.cos.ap-shanghai.myqcloud.com/20190705232033.png)
 
 从上面可以发现，随着缓冲池的增大，测试结果TPS会线性增长。
@@ -22,7 +25,6 @@ InnoDB 存储引擎即缓存数据，又缓存索引，并且将它们缓存于�
 ### 索引
 
 对于索引的一些基本认识：
-
 - 索引加快数据库查询速度；
 - 表经常进行INSERT/UPDATE/DELETE操作就不要建立索引了，换言之：索引会降低插入、删除、修改等维护任务的速度；
 - 索引的最左匹配原则
@@ -55,13 +57,13 @@ CREATE TABLE `user` (
   `password` varchar(64) NOT NULL COMMENT '密码',
   `createTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updateTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `status` tinyint(3) DEFAULT '1' COMMENT '状态, 1:启用,-1:删除',
+  `status` tinyint(3) DEFAULT '1' COMMENT '状态, 1:启用,0:删除',
   `card` varchar(64) DEFAULT NULL COMMENT '身份证',
   `phone` varchar(64) DEFAULT NULL COMMENT '手机',
   PRIMARY KEY (`id`),
-  KEY `id` (`id`),
-  KEY `index_user` (`name`,`password`,`card`,`phone`,`age`)
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8;
+  KEY `index_user` (`name`,`password`,`card`,`phone`,`age`),
+  FULLTEXT KEY `ft_name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8 COMMENT='用户表';
 ```
 
 
