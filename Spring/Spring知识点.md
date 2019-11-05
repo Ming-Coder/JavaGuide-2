@@ -89,7 +89,7 @@ View是一个接口，实现类支持不同的View类型（jsp、freemarker、pd
 
 ## Spring Bean 的生命周期？
 
-![](../../img/spring-bean-life-cycle.jpg)
+![](https://hexo-1252893039.cos.ap-shanghai.myqcloud.com/20191105153803.jpg)
 
 - Spring 对 bean 进行初始化；
 - Spring 将值和 bean 的引用注入到bean对应的属性中；
@@ -101,3 +101,8 @@ View是一个接口，实现类支持不同的View类型（jsp、freemarker、pd
 - 如果 bean 实现了 BeanPostProcessor 接口，Spring将调用它们的 postProcessAfterInitialization() 方法；
 - 此时，bean 已经准备就绪，可以被应用程序使用了，它们将一直驻留在应用上下文中,直到该应用上下文被销毁；
 - 如果 bean 实现了 DisposableBean 接口，Spring 将调用它的 destroy() 接口方法。同样，如果 bean 使用 destroy- method 声明了销毁方法，该方法也会被调用。
+
+### Bean 作用域
+
+![](https://hexo-1252893039.cos.ap-shanghai.myqcloud.com/20191105153021.png)
+
